@@ -1,9 +1,15 @@
+function trimFailMessage(message) {
+    var splited = message.split("====================");
+    var res = "====================" + splited[splited.length - 2] + "====================" + splited[splited.length - 1];
+    return res;
+}
+
 
 function getMessageString(messageHolder) {
     if (!messageHolder.failed)
         return "All tests passed 😎";
-    var messageString = "Test failed at" + messageHolder.failedAt + "😢\n";
-    messageString += "Reason: " + messageHolder.failedMessage;
+    var messageString = "Test failed at " + messageHolder.failedAt + "😢\n";
+    messageString += messageHolder.failedMessage;
     return messageString;
 }
 
@@ -15,12 +21,11 @@ module.exports = (client) => {
             failedAt: null,
             failedMessage: null,
         }
-
         for (const skill of check.skills) {
             if (skill.BreakdownSkillReport.breakdown.passed != 1) {
                 messageHolder.failed = true;
-                messageHolder.failedAt = skill.BreakdownSkillReport.name.split("-")[1];
-                messageHolder.failedMessage = check.externalItems[0].comment;;
+                messageHolder.failedAt = skill.BreakdownSkillReport.name.split(" ")[0];                
+                messageHolder.failedMessage = trimFailMessage(check.externalItems[0].comment);
                 break;
             }
                 
