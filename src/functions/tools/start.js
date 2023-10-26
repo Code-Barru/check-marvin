@@ -10,8 +10,8 @@ module.exports = (client) => {
             const lastCheckUp = client.getLastCheckUp(checkUps);
             if (!lastCheckUp)
                 return;
-            const check = await client.getCheck(lastCheckUp);
-            const message = client.getPushMessage(check);
+            const checkUpInfo = await client.getCheck(lastCheckUp);
+            const message = client.getPushMessage(checkUpInfo);
 
             client.push.send(message.title, message.message, function(err, res){
                 if (err)

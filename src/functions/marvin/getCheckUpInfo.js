@@ -1,6 +1,6 @@
 
 module.exports = (client) => {
-    client.getCheck = async (check) => {
+    client.getCheckUpInfo = async (check) => {
         return await client.axios.get(`https://api.epitest.eu/me/details/${check.results.testRunId}`, {
             headers: {
                 "accept": "*/*",
