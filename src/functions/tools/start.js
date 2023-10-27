@@ -4,6 +4,8 @@ module.exports = (client) => {
     client.start = async () => {
         client.Bearer = await client.getToken();
             
+            
+        schedule.scheduleJob('*/1 * * * *', async () => {
             const checkUps = await client.getCheckUps();
             const lastCheckUp = client.getLastCheckUp(checkUps);
             if (!lastCheckUp)
@@ -15,8 +17,6 @@ module.exports = (client) => {
                 if (err)
                     console.log(err);
             });
-        schedule.scheduleJob('*/1 * * * *', async () => {
-            
         })
     }
 }
