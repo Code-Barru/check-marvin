@@ -5,7 +5,7 @@ module.exports = (client) => {
         if (lastTestRunId != process.env.LAST_CHECKUP) {
             client.updateEnv("LAST_CHECKUP", lastTestRunId);
             process.env.LAST_CHECKUP = lastTestRunId;
-            return checkUps[checkUps.length-2];
+            return checkUps[checkUps.length-1];
         }
         return undefined;
     }
