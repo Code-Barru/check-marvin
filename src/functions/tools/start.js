@@ -2,8 +2,9 @@ const schedule = require('node-schedule');
 
 module.exports = (client) => {
     client.start = async () => {
+        client.Bearer = await client.getToken();
         schedule.scheduleJob('*/1 * * * *', async () => {
-            client.Bearer = await client.getToken();
+            
             const checkUps = await client.getCheckUps();
             const lastCheckUp = client.getLastCheckUp(checkUps);
             if (!lastCheckUp)
